@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<link rel="stylesheet" href="{{ url_for('static', filename='clientes.css') }}">
+
+<header class="barra_pesquisa mb-4">
+    <nav class="navbar navbar-light bg-light p-3">
+        <div class="container-fluid">
+            <form class="d-flex mx-auto w-100" role="search" method="GET" action="{{ url_for('clientes') }}" style="max-width: 600px;">
+                <div class="input-group">
+                    <input class="form-control" type="search" name="q" value="{{ termo or '' }}" placeholder="Pesquisar Clientes..."
+                        aria-label="Pesquisar">
+                    <button id="pesquisar_clientes" type="submit">
+                        <img src="../static/Icons/Brancos/pesquisar.svg" alt="Buscar" width="20">
+                    </button>
+                    <button id="filtro_clientes" type="button">
+                        <img src="../static/Icons/Brancos/filtro.svg" alt="Buscar" width="20">
+                    </button>
+                    <button id="adicionar_clientes" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasAdicionar">
+                        <img src="../static/Icons/Brancos/adicionar.svg" alt="Buscar" width="20">
+                        <p>Adicionar Cliente</p>
+                    </button>
+                </div>
+            </form>
+            <div style="width: 100px;" class="d-none d-lg-block"></div>
+        </div>
+    </nav>
+</header>
+
+<div id="hero_clientes">
+
+    <div id="titulo_clientes" style="margin-left: 0px;">
+        <h5> Venda </h5> <img src="../static/Icons/Verdes/seta_direita.svg" alt="Seta para direita" id="seta_direita">
+        <h2> Clientes </h2>
+    </div>
+
+    <div class="opcoes" style="margin-top: 35px;">
+    <input type="radio" id="opcao1" name="escolha" value="A">
+    <label for="opcao1"><i class="fas fa-sun">
+
+        <img src="../static/Icons/Verdes/cards_verde.svg" alt="Cards inativa" class="inativo" style="margin-bottom: 7px; margin-left: 2px;">
+        <img src="../static/Icons/Brancos/cards_branco (2).svg" alt="Lua ativa" class="ativo">
+
+    </label>
+
+    <input type="radio" id="opcao2" name="escolha" value="B">
+    <label for="opcao2"><i class="fas fa-moon">
+
+        <img src="../static/Icons/Verdes/lista_verde.svg" alt="Lista inativa" class="inativo" style="margin-bottom: 7px; margin-left: 2px;">
+        <img src="../static/Icons/Brancos/lista_branca.svg" alt="Lista ativa" class="ativo">
+
+    </label>
+</div>
+</div>
+
+<main class="container-fluid px-4">
+    <!--Visualização em Cards -->
+    <section class="cards_clientes" id="view_cards">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+            {% if clientes %}
+            {% for cliente in clientes %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if cliente.imagem_url %}
+                    <img src="{{ cliente.imagem_url }}" class="card-img-top" alt="Cliente"
+                        style="height: 140px; object-fit: cover;">
+                    {% else %}
+                    <div
+                        style="height: 140px; background-color: #e0e0e0; display: flex; align-items: center; justify-content: center;">
+                        <span class="text-muted">Sem imagem</span>
+                    </div>
+                    {% endif %}
+                    <div class="card-body p-2">
+                        <h5 class="card-title mb-1">{{ cliente.nome }}</h5>
+                        <p class="card-text mb-2">CPF / CPNJ: {{ cliente.cpf_cnpj }}</p>
+                        <p class="card-text mb-2">E-mail: {{ cliente.email }}</p>
+                        <p class="card-text mb-2">Código Postal: {{ cliente.codigo_postal }}</p>
+                    </div>
+                    <div class="card-body d-grid p-2 pt-0">
+                        <button
+                            onclick='abrirModalEditarCliente("{{ cliente.id_cliente }}", "{{ cliente.nome }}", "{{ cliente.cpf_cnpj }}", "{{ cliente.telefone }}", "{{ cliente.email }}", "{{ cliente.codigo_postal }}", "{% if cliente.imagem_url %}{{ cliente.imagem_url }}{% endif %}")'
+                            class="btn btn-primary btn-sm" type="button" style="background-color: #148577; border: none;">
+                            Editar
+                        </button>
+                    </div>
+                    <div class="card-footer bg-transparent p-2">
+                        <small class="text-muted" style="font-size: 0.7rem;">Atualizado há 3 min</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">{% if termo %}Nenhum cliente encontrado para "{{ termo }}".{% else %}Nenhum cliente cadastrado.{% endif %}</div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Visualização em lista -->
+    <section class="lista_clientes" id="view_lista" style="display: none;">
+        <div class="lista-container">
+            {% if clientes %}
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF / CNPJ</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th>Código Postal</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr class="linha-cliente">
+                        <td><strong>{{ cliente.nome }}</strong></td>
+                        <td>{{ cliente.cpf_cnpj }}</td>
+                        <td>{{ cliente.telefone }}</td>
+                        <td>{{ cliente.email }}</td>
+                        <td>{{ cliente.codigo_postal }}</td>
+                        <td>
+                            <button
+                                onclick='abrirModalEditarCliente("{{ cliente.id_cliente }}", "{{ cliente.nome }}", "{{ cliente.cpf_cnpj }}", "{{ cliente.telefone }}", "{{ cliente.email }}", "{{ cliente.codigo_postal }}", "{% if cliente.imagem_url %}{{ cliente.imagem_url }}{% endif %}")'
+                                class="btn btn-primary btn-sm" type="button"
+                                style="background-color: #148577; border: none;">
+                                Editar
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-info">{% if termo %}Nenhum cliente encontrado para "{{ termo }}".{% else %}Nenhum cliente cadastrado.{% endif %}</div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditar">
+    <div class="offcanvas-header bg-light text-dark" id="titulo_canvas_editar">
+        <h5 id="offcanvasEditarLabel">Editar Cliente</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="row g-3" id="formEditar" method="POST" action="" enctype="multipart/form-data">
+            <div class="col-12">
+                <label class="form-label">Nome do Cliente</label>
+                <input type="text" class="form-control" id="edit_nome" name="nome">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">CPF / CNPJ</label>
+                <input type="text" class="form-control" id="edit_cpf_cnpj" placeholder="CPF / CNPJ" name="cpf_cnpj">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">telefone</label>
+                <input type="text" class="form-control" id="edit_telefone" placeholder="telefone" name="telefone">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">E-mail</label>
+                <input type="text" class="form-control" id="edit_email" placeholder="email" name="email">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Código Postal</label>
+                <input type="text" class="form-control" id="edit_codigo_postal" placeholder="Código Postal"
+                    name="codigo_postal">
+            </div>
+            <div class="col-md-12">
+                <label class="form-label"> Imagem Atual </label>
+                <img id="edit_imagem_preview" src="" alt="Imagem do cliente" style="max-width: 200px; max-height: 200px; display: none;">
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Upload de Imagem</label>
+                <input type="file" class="form-control" id="edit_imagem" placeholder="Anexe a imagem de seu produto"
+                    name="imagem">
+            </div>
+            <div class="col-12 d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+            <div class="col-12 d-grid gap-2 mt-4">
+                <button type="button" class="btn btn-danger" id="btnExcluirCliente">Excluir Cliente</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="1" id="offcanvasAdicionar">
+    <div class="offcanvas-header bg-light text-dark" id="titulo_canvas_adicionar">
+        <h5 id="offcanvasAdicionarLabel">Adicionar Cliente</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="row g-3" method="POST" action="{{ url_for('salvar_cliente') }}" enctype="multipart/form-data">
+            <div class="col-12">
+                <label class="form-label">Nome do Cliente</label>
+                <input type="text" class="form-control" id="nome" name="nome">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">CPF / CNPJ</label>
+                <input type="text" class="form-control" placeholder="CPF / CNPJ" name="cpf_cnpj">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Telefone</label>
+                <input type="text" class="form-control" placeholder="Telefone" name="telefone">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">E-mail</label>
+                <input type="text" class="form-control" placeholder="E-mail" name="email">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Código Postal</label>
+                <input type="text" class="form-control" placeholder="Código Postal" name="codigo_postal">
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Upload de Imagem</label>
+                <input type="file" class="form-control" placeholder="Anexe a imagem de seu produto" name="imagem">
+            </div>
+            <div class="col-12 d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Funcionalidade de alternância entre visualizações
+    document.getElementById('opcao1').addEventListener('change', function() {
+        if (this.checked) {
+            document.getElementById('view_cards').style.display = 'block';
+            document.getElementById('view_lista').style.display = 'none';
+            localStorage.setItem('viewModoClientes', 'cards');
+        }
+    });
+
+    document.getElementById('opcao2').addEventListener('change', function() {
+        if (this.checked) {
+            document.getElementById('view_cards').style.display = 'none';
+            document.getElementById('view_lista').style.display = 'block';
+            localStorage.setItem('viewModoClientes', 'lista');
+        }
+    });
+
+    // Restaura a visualização salva
+    window.addEventListener('load', function() {
+        const modo = localStorage.getItem('viewModoClientes') || 'cards';
+        if (modo === 'lista') {
+            document.getElementById('opcao2').checked = true;
+            document.getElementById('view_cards').style.display = 'none';
+            document.getElementById('view_lista').style.display = 'block';
+        } else {
+            document.getElementById('opcao1').checked = true;
+            document.getElementById('view_cards').style.display = 'block';
+            document.getElementById('view_lista').style.display = 'none';
+        }
+    });
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

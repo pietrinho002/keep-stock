@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque Inteligente | Keep Stock </title>
+    <link rel="stylesheet" href="../static/LP_Keep_Stock.css">
+    <link rel="stylesheet" href="../static/acessibilidade.css">
+</head>
+
+<body>
+
+    <section id="parallax-video">
+        <video autoplay muted loop playsline id="bg-video">
+            <source src="../static/Image/Keep_Stock_Paralax.mp4" type="video/mp4">
+        </video>
+
+        <div class="parallax-text" href="#">
+            <img src="../static/Image/Keep_Stock_logo_branca.png" alt="">
+        </div>
+    </section>
+
+    <header>
+        <div id="logo">
+            <img src="../static/Image/Keep.png" alt="logo">
+        </div>
+        <nav class="menu">
+            <ul>
+                <a href="#">
+                    <li>Keep Stock</li>
+                </a>
+                <a href="#sobre_nos">
+                    <li>Sobre</li>
+                </a>
+                <a href="#megaverse">
+                    <li>Gerenciamento de Estoque</li>
+                </a>
+                <a href="#events_space">
+                    <li>Soluções</li>
+                </a>
+                <a href="#contato">
+                    <li>Contato</li>
+                </a>
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <section id="sobre_nos" style="margin-bottom: -50px;">
+        <h2> Sobre a Keep Stock </h2>
+        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti eos vel ipsam dicta blanditiis temporibus
+            recusandae quam odio velit ullam! Saepe voluptas <br> nostrum consequuntur doloremque iure omnis maxime,
+            porro aspernatur! <br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates fugiat doloribus quibusdam dolorum fuga
+            quam. Nostrum qui et exercitationem <br>
+            non similique rem quam quo numquam animi magni voluptate, ut atque!</p>
+        <div>
+            <img src="../static/Image/Keep.png" alt="" style="margin-left: 1200px; margin-top: -280px; width: 400px;">
+        </div>
+    </section>
+
+    <section id="premiere_studios">
+        <div class="img_premiere">
+            <img src="../static/Image/Keep_Stock_Local.jpg" alt="Imagem_premiere">
+            <div class="texto_premiere">
+                <h1> Gerenciamento de Estoque </h1>
+                <p> Step into our premier, eco-friendly studios—spaces where your creative vision transforms <br> into
+                    reality, enhanced by the latest in sustainable innovation and industry-leading <br> technology.</p>
+                <button onclick="redirecionar()"> Acesse o Sistema </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos">
+
+        <div>
+            <h4> Gerenciamento de estoque </h4>
+            <h2> Soluções </h2>
+        </div>
+
+        <div>
+            <button type="submit"> Descubra </button>
+        </div>
+
+        <div>
+            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, repellendus debitis provident aut
+                accusantium aliquam <br>
+                illo quibusdam amet placeat id atque? Vitae repellendus ducimus debitis quos possimus nisi eius aperiam?
+            </p>
+        </div>
+
+    </section>
+
+    <section class="marquee-container">
+        <div class="marquee-track" id="cards_servicos">
+
+            <!-- Cards -->
+            <div class="card">
+                <img src="../static/Image/image1.png" alt="1">
+                <h2 style="margin-left: -40px;"> Controle de <br>Estoque </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image2.png" alt="2">
+                <h2 style="margin-left: -40px;"> Soluções Digitais </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image3.png" alt="3">
+                <h2 style="margin-left: -40px;"> Sistema RFID </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image4.png" alt="4">
+                <h2 style="margin-left: -10px;"> Sensores </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image5.png" alt="5">
+                <h2> Sistema Logística </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image6.png" alt="6">
+                <h2> Controle Medicamentos </h2>
+            </div>
+
+            <!-- Duplicação dos Cards para Loop -->
+
+            <div class="card">
+                <img src="../static/Image/image1.png" alt="1">
+                <h2 style="margin-left: -40px;"> Controle de <br>Estoque </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image2.png" alt="2">
+                <h2> Soluções Digitais </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image3.png" alt="3">
+                <h2> Sistema RFID </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image4.png" alt="4">
+                <h2 style="margin-left: -10px;"> Sensores </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image5.png" alt="5">
+                <h2> Sistema Logística </h2>
+            </div>
+            <div class="card">
+                <img src="../static/Image/image6.png" alt="6">
+                <h2> Controle Medicamentos </h2>
+            </div>
+        </div>
+    </section>
+
+    <section id="megaverse">
+        <div class="img_megaverse">
+            <img src="../static/Image/Keep_Stock_Caixas.jpg" alt="Imagem_megaverse">
+            <div class="texto_megaverse">
+                <h2> Keep Stock™ </h2>
+                <h1> VIRTUAL PRODUCTION </h1>
+                <p> Step into the next generation of creative production, where our advanced virtual production <br>
+                    technology unlocks limitless potential. From real-time rendering to LED-powered immersion, <br> we
+                    empower your boldest ideas to come to life in ways never seen before. </p>
+                <button onclick="redirecionar()"> Acesse o Sistema </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato">
+        <div id="coluna1">
+            <h1> Entre em contato </h1>
+            <h4> Book a studio, rent equipment, ask a question or kick start <br> your next creative endeavour. </h4>
+            <img src="../static/Image/Keep_Stock_Local.jpg" alt="Imagem_local">
+
+            <div id="formulario">
+                <div class="footer-formulario1">
+                    <address>
+                        info@keep.stock.com <br>
+                        T. 123.456.7890 <br>
+                    </address>
+                </div>
+
+                <div class="footer-formulario2">
+                    <address>
+                        59 São Paulo 2° andar <br>
+                        São Paulo, Grande São Paulo 10011 <br>
+                    </address>
+                </div>
+            </div>
+        </div>
+
+        <div class="coluna2">
+            <form action="">
+                <label for="name">Nome* </label>
+                <input type="text" name="Nome" id="Nome" placeholder="Nome Completo">
+
+                <label for="email">Email* </label>
+                <input type="email" name="email" id="" placeholder="Email">
+
+                <label for="telefone">Telefone* </label>
+                <input type="tel" name="tel" id="" placeholder="Número de Telefone ">
+
+                <label for="company">Company </label>
+                <input type="text" name="Company" id="" placeholder="Nome da Empresa">
+            </form>
+
+            <div id="topicos">
+                <label for="Tópicos"> Tópico de interesse* </label>
+                <select name="Cursos" id="Cursos" placeholder="Please Select">
+                    <option value="1">Soluções físicas</option>
+                    <option value="2">Sistema de gerencimento de estoque</option>
+                    <option value="3">Eventos</option>
+                    <option value="4">Equipamento</option>
+                    <option value="5">Suporte</option>
+                    <option value="6">Tópicos Gerais</option>
+                </select>
+            </div>
+
+            <div id="outros_formulario">
+
+                <div id="mensagem">
+                    <label for="Message">Mensagem</label>
+                    <input type="textarea" name="Mensagem" id="Area" placeholder="Escreva sua mensagem aqui">
+                </div>
+
+                <div>
+                    <label for="quest">Quanto é 5 + 2? </label>
+                    <input type="text" name="quest" id="">
+                </div>
+                <div id="botao_formulario">
+                    <button type="submit"> Enviar </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section footer class="rodape" style="background-color: #ffffff;;">
+        <div footer class="footer-container">
+
+            <div class="footer-logo">
+                <img src="../static/Image/Keep.png">
+            </div>
+
+            <div class="footer-1">
+                <address>
+                    59 São Paulo 2° andar <br>
+                    São Paulo, Grande São Paulo 10011 <br>
+                </address>
+            </div>
+
+            <div class="footer-2">
+                <address>
+                    info@keep.stock.com <br>
+                    T. 123.456.7890 <br>
+                </address>
+            </div>
+
+
+            <div class="redes">
+                <nav>
+                    <ul>
+                        <li><a href="https://www.instagram.com/"><img src="../static/Image/instagram_logo.png" alt="instagram"></a></li>
+                        <li><a href="https://web.twitter.com/"><img src="../static/Image/twitter_logo.png" alt="twitter"></a></li>
+                        <li><a href="https://www.facebook.com/?locale=pt_BR"><img src="../static/Image/facebook_logo.png"
+                                    alt="facebook"></a>
+                        </li>
+                        <li><a href="https://web.youtube.com/"><img src="../static/Image/youtube_logo.png" alt="youtube"></a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="copy">
+        <div class="copyright" style="margin-left: -20px;">
+            <p>&copy; Keep Stock LLC. Todos os direitos reservados. </p>
+        </div>
+        <div class="designed" style="margin-right: 7px;">
+            <p> Designed by ALLYSSON </p>
+        </div>
+
+    </section>
+
+</body>
+
+<script src="../static/javascript/leitor_tela.js"></script>
+
+<script>
+    function redirecionar() {
+        window.location.href = "login.html";
+    }
+</script>
+
+
+</html>

@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<link rel="stylesheet" href="{{ url_for('static', filename='movimentacoes.css') }}">
+
+<header class="barra_pesquisa mb-4">
+    <nav class="navbar navbar-light bg-light p-3">
+        <div class="container-fluid">
+            <form class="d-flex mx-auto w-100" role="search" method="GET" action="{{ url_for('movimentacoes') }}" style="max-width: 600px;">
+                <div class="input-group">
+                    <input class="form-control" type="search" name="q" value="{{ termo or '' }}" placeholder="Pesquisar Movimentações..."
+                        aria-label="Pesquisar">
+                    <button id="pesquisar_produto" type="submit">
+                        <img src="../static/Icons/Brancos/pesquisar.svg" alt="Buscar" width="20">
+                    </button>
+                    <button id="filtro_produto" type="button">
+                        <img src="../static/Icons/Brancos/filtro.svg" alt="Buscar" width="20">
+                    </button>
+                    <button id="adicionar_entrada" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasEntrada">
+                        <img src="../static/Icons/Brancos/adicionar.svg" alt="Entrada" width="20">
+                        <p>Adicionar Entrada</p>
+                    </button>
+                    <button id="adicionar_saida" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasSaida">
+                        <img src="../static/Icons/Brancos/adicionar.svg" alt="Saída" width="20">
+                        <p>Adicionar Saída</p>
+                    </button>
+                </div>
+            </form>
+            <div style="width: 100px;" class="d-none d-lg-block"></div>
+        </div>
+    </nav>
+</header>
+
+<div id="hero_produtos">
+    <div id="titulo_produtos">
+        <h5> Estoque </h5> <img src="../static/Icons/Verdes/seta_direita.svg" alt="Seta para direita" id="seta_direita">
+        <h2> Movimentações </h2>
+    </div>
+</div>
+
+<main class="container-fluid px-4">
+    <section class="lista_movimentacoes" id="view_lista_entradas">
+        <div class="lista-container">
+            <div class="section-title">Entradas</div>
+            {% if entradas %}
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr></tr>
+                        <th style="color: black;">ID</th>
+                        <th style="color: black;">Produto</th>
+                        <th style="color: black;">Quantidade</th>
+                        <th style="color: black;">Data</th>
+                        <th style="color: black;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entrada in entradas %}
+                    <tr class="linha-produto">
+                        <td>{{ entrada.id_entrada }}</td>
+                        <td><strong>{{ entrada.produto or ('Produto #' ~ entrada.id_produto) }}</strong></td>
+                        <td class="text-success fw-semibold">+{{ entrada.quantidade }} unidades</td>
+                        <td>{{ entrada.data_entrada }}</td>
+                        <td>
+                            <button
+                                onclick='abrirModalEditarEntrada("{{ entrada.id_entrada }}", "{{ entrada.id_produto }}", "{{ entrada.quantidade }}", "{{ entrada.data_entrada }}")'
+                                class="btn btn-primary btn-sm" type="button"
+                                style="background-color: #148577; border: none; flex: 1;">
+                                Editar
+                            </button>
+                            <button onclick='excluirEntrada("{{ entrada.id_entrada }}")'
+                                class="btn btn-danger btn-sm" type="button" style="flex: 1;">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-info">{% if termo %}Nenhuma entrada encontrada para "{{ termo }}".{% else %}Nenhuma entrada cadastrada.{% endif %}</div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="lista_movimentacoes" id="view_lista_saidas">
+        <div class="lista-container">
+            <div class="section-title">Saídas</div>
+            {% if saidas %}
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="color: black;">ID</th>
+                        <th style="color: black;">Produto</th>
+                        <th style="color: black;">Tipo</th>
+                        <th style="color: black;">Quantidade</th>
+                        <th style="color: black;">Cliente</th>
+                        <th style="color: black;">Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for saida in saidas %}
+                    <tr class="linha-produto">
+                        <td>{{ saida.id_saida }}</td>
+                        <td><strong>{{ saida.produto or ('Produto #' ~ saida.id_produto) }}</strong></td>
+                        <td>{{ saida.tipo_saida or 'Venda' }}</td>
+                        <td class="text-danger fw-semibold">-{{ saida.quantidade }} unidades</td>
+                        <td>{{ saida.cliente or 'Nenhum' }}</td>
+                        <td>{{ saida.data_saida }}</td>
+                        <td>
+                            <button
+                                onclick='abrirModalEditarSaida("{{ saida.id_saida }}", "{{ saida.id_produto }}", "{{ saida.quantidade }}", "{{ saida.tipo_saida }}", "{{ saida.id_cliente }}", "{{ saida.data_saida }}")'
+                                class="btn btn-primary btn-sm" type="button"
+                                style="background-color: #148577; border: none; flex: 1;">
+                                Editar
+                            </button>
+                            <button onclick='excluirSaida("{{ saida.id_saida }}")'
+                                class="btn btn-danger btn-sm" type="button" style="flex: 1;">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-info">{% if termo %}Nenhuma saída encontrada para "{{ termo }}".{% else %}Nenhuma saída cadastrada.{% endif %}</div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEntrada">
+    <div class="offcanvas-header bg-light text-dark" id="titulo_canvas_adicionar">
+        <h5>Adicionar Entrada</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="row g-3" method="POST" action="{{ url_for('salvar_entrada') }}">
+            <div class="col-12">
+                <label class="form-label">Produto</label>
+                <select class="form-select" name="id_produto" required>
+                    <option value="">Selecione</option>
+                    {% for produto in produtos %}
+                    <option value="{{ produto.id_produto }}">{{ produto.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Quantidade</label>
+                <input type="number" min="1" class="form-control" name="quantidade" required>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Data/Hora</label>
+                <input type="datetime-local" class="form-control" name="data_entrada">
+            </div>
+            <div class="col-12 d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">Salvar Entrada</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditarEntrada">
+    <div class="offcanvas-header bg-light text-dark" id="titulo_canvas_editar">
+        <h5>Editar Entrada</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="row g-3" id="formEditarEntrada" method="POST" action="">
+            <div class="col-12">
+                <label class="form-label">Produto</label>
+                <select class="form-select" id="edit_entrada_produto" name="id_produto" required>
+                    <option value="">Selecione</option>
+                    {% for produto in produtos %}
+                    <option value="{{ produto.id_produto }}">{{ produto.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Quantidade</label>
+                <input type="number" min="1" class="form-control" id="edit_entrada_quantidade" name="quantidade" required>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Data/Hora</label>
+                <input type="datetime-local" class="form-control" id="edit_entrada_data" name="data_entrada">
+            </div>
+            <div class="col-12 d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSaida">
+    <div class="offcanvas-header bg-light text-dark" id="titulo_canvas_adicionar">
+        <h5>Adicionar Saída</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="row g-3" method="POST" action="{{ url_for('salvar_saida') }}">
+            <div class="col-12">
+                <label class="form-label">Produto</label>
+                <select class="form-select" name="id_produto" required>
+                    <option value="">Selecione</option>
+                    {% for produto in produtos %}
+                    <option value="{{ produto.id_produto }}">{{ produto.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Quantidade</label>
+                <input type="number" min="1" class="form-control" name="quantidade" required>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Tipo de Saída</label>
+                <select class="form-select" name="tipo_saida">
+                    <option selected>Venda</option>
+                    <option>Descarte</option>
+                    <option>Transferência</option>
+                    <option>Devolução</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Cliente</label>
+                <select class="form-select" name="id_cliente">
+                    <option value="">Nenhum</option>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.id_cliente }}">{{ cliente.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Data/Hora</label>
+                <input type="datetime-local" class="form-control" name="data_saida">
+            </div>
+            <div class="col-12 d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">Salvar Saída</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditarSaida">
+    <div class="offcanvas-header bg-light text-dark" id="titulo_canvas_editar">
+        <h5>Editar Saída</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="row g-3" id="formEditarSaida" method="POST" action="">
+            <div class="col-12">
+                <label class="form-label">Produto</label>
+                <select class="form-select" id="edit_saida_produto" name="id_produto" required>
+                    <option value="">Selecione</option>
+                    {% for produto in produtos %}
+                    <option value="{{ produto.id_produto }}">{{ produto.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Quantidade</label>
+                <input type="number" min="1" class="form-control" id="edit_saida_quantidade" name="quantidade" required>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Tipo de Saída</label>
+                <select class="form-select" id="edit_saida_tipo" name="tipo_saida">
+                    <option>Venda</option>
+                    <option>Descarte</option>
+                    <option>Transferência</option>
+                    <option>Devolução</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Cliente</label>
+                <select class="form-select" id="edit_saida_cliente" name="id_cliente">
+                    <option value="">Nenhum</option>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.id_cliente }}">{{ cliente.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Data/Hora</label>
+                <input type="datetime-local" class="form-control" id="edit_saida_data" name="data_saida">
+            </div>
+            <div class="col-12 d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function abrirModalEditarEntrada(id, id_produto, quantidade, data_entrada) {
+        const form = document.getElementById('formEditarEntrada');
+        form.action = "/entrada/atualizar/" + id;
+        document.getElementById('edit_entrada_produto').value = id_produto;
+        document.getElementById('edit_entrada_quantidade').value = quantidade;
+        document.getElementById('edit_entrada_data').value = (data_entrada || '').slice(0, 16);
+        new bootstrap.Offcanvas(document.getElementById('offcanvasEditarEntrada')).show();
+    }
+
+    function excluirEntrada(id) {
+        if (confirm('Deseja realmente excluir esta entrada? O estoque do produto será ajustado.')) {
+            window.location.href = '/entrada/excluir/' + id;
+        }
+    }
+
+    function abrirModalEditarSaida(id, id_produto, quantidade, tipo_saida, id_cliente, data_saida) {
+        const form = document.getElementById('formEditarSaida');
+        form.action = "/saida/atualizar/" + id;
+        document.getElementById('edit_saida_produto').value = id_produto;
+        document.getElementById('edit_saida_quantidade').value = quantidade;
+        document.getElementById('edit_saida_tipo').value = tipo_saida || 'Venda';
+        document.getElementById('edit_saida_cliente').value = id_cliente || '';
+        document.getElementById('edit_saida_data').value = (data_saida || '').slice(0, 16);
+        new bootstrap.Offcanvas(document.getElementById('offcanvasEditarSaida')).show();
+    }
+
+    function excluirSaida(id) {
+        if (confirm('Deseja realmente excluir esta saída? O estoque do produto será ajustado.')) {
+            window.location.href = '/saida/excluir/' + id;
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

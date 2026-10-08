@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='404.css') }}">
+
+  <main class="error-container">
+    <h1 class="error-code">404</h1>
+    <h2 class="error-title">Página não encontrada, talves o sistema esteja em manutenção ou algum <br> erro tenha ocorrido</h2>
+    <p class="error-message">
+      O conteúdo que você procura pode ter sido movido, excluído ou a URL está incorreta.
+    </p>
+    <a href="{{ url_for('index.html') }}" class="btn-home">Voltar para o Início</a>
+  </main>
+
+{% endblock %}
+

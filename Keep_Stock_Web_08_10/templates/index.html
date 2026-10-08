@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+
+<main class="container-fluid px-4">
+    <section class="resumo-cards mb-5">
+        <div class="row g-3">
+            <div class="col-md-6 col-lg-3">
+                <div class="card dashboard-card shadow-sm border-0 w-100">
+                    <div class="card-body p-4" style="background-color: #148577; color: #ffffff; border-radius: 12px;">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="text mb-2" style="color: #ffffff;">Total de Produtos</h6>
+                                <h3 class="fw-bold mb-0" style="color: #ffffff;">{{ total_produtos }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card dashboard-card shadow-sm border-0 w-100">
+                    <div class="card-body p-4" style="background-color: #148577; color: #ffffff; border-radius: 12px;">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="text mb-2" style="color: #ffffff;">Estoque Baixo</h6>
+                                <h3 class="fw-bold mb-0" style="color: #ffffff;">{{ total_estoque_baixo }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card dashboard-card shadow-sm border-0 w-100">
+                    <div class="card-body p-4" style="background-color: #148577; color: #ffffff; border-radius: 12px;">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="text mb-2" style="color: #ffffff;">Pedidos Pendentes</h6>
+                                <h3 class="fw-bold mb-0" style="color: #ffffff;">{{ total_pedidos_pendentes }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card dashboard-card shadow-sm border-0 w-100">
+                    <div class="card-body p-4" style="background-color: #148577; color: #ffffff; border-radius: 12px;">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="text mb-2" style="color: #ffffff;">Movimentações</h6>
+                                <h3 class="fw-bold mb-0" style="color: #ffffff;">{{ total_movimentacoes }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="movimentacoes-recentes mb-5">
+        <div class="row g-4">
+            <div class="col-12 col-lg-6" id="entrada">
+                <h4>Entradas Recentes</h4>
+                <div class="lista-container">
+                    {% if entradas %}
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entrada in entradas %}
+                            <tr>
+                                <td><strong>{{ produtos_map.get(entrada.id_produto, 'Produto #' ~ entrada.id_produto) }}</strong></td>
+                                <td style="color: #28a745; font-weight: bold;">+{{ entrada.quantidade }}</td>
+                                <td>{{ entrada.data_entrada }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-info">Nenhuma entrada cadastrada.</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6" id="saida">
+                <h4>Saídas Recentes</h4>
+                <div class="lista-container">
+                    {% if saidas %}
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Cliente</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for saida in saidas %}
+                            <tr>
+                                <td><strong>{{ produtos_map.get(saida.id_produto, 'Produto #' ~ saida.id_produto) }}</strong></td>
+                                <td style="color: #dc3545; font-weight: bold;">-{{ saida.quantidade }}</td>
+                                <td>{{ clientes_map.get(saida.id_cliente, 'N/A') }}</td>
+                                <td>{{ saida.data_saida }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-info">Nenhuma saída cadastrada.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="estoque-baixo mb-5">
+        <h4>Produtos com Estoque Baixo</h4>
+        <div class="lista-container">
+            {% if estoque_baixo %}
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade Atual</th>
+                        <th>Quantidade Mínima</th>
+                        <th>Fornecedor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in estoque_baixo %}
+                    <tr>
+                        <td><strong>{{ produto.nome }}</strong></td>
+                        <td style="color: #dc3545; font-weight: bold;">{{ produto.quantidade_atual }}</td>
+                        <td>{{ produto.quantidade_minima }}</td>
+                        <td>{{ produto.fornecedor }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-info">Nenhum produto com estoque baixo.</div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+
+{% endblock %}

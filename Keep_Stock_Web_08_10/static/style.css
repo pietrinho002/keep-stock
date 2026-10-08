@@ -1,0 +1,236 @@
+/* RESET */
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+    background-color: #f1f5f9;
+}
+
+/* LAYOUT */
+.wrapper {
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #ffffff;
+    color: #148577;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2); 
+    width: 250px;
+    height: 100vh; 
+    top: 0;
+    left: 0;
+}
+
+.sidebar .logo {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.logo img{
+    margin-top: -40px;
+    max-width: 200px;
+    margin-bottom: -40px;
+}
+
+.sidebar a {
+    color: #148577;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    transition: 0.2s;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+}
+
+.sidebar a:hover {
+    background: #148577;
+    color: #fff;
+}
+
+.sidebar a:hover #dashboard img {
+    content: url("../static/Icons/Brancos/dashboard_branca.svg");
+}
+
+#dashboard {
+    height: auto;
+    transition: opacity 0.3s ease;
+}
+
+.cards-gerais {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.bem-vindo {
+    margin-top: 40px;
+}
+
+.date {
+    margin-bottom: 30px;
+}
+
+
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+    background-color: #f1f5f9;
+}
+
+/* LAYOUT */
+.wrapper {
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #ffffff;
+    color: #148577;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2); 
+    width: 250px;
+    height: 100vh; 
+    top: 0;
+    left: 0;
+}
+
+.sidebar .logo {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.logo img{
+    margin-top: -40px;
+    max-width: 200px;
+    margin-bottom: -40px;
+}
+
+.sidebar a {
+    color: #148577;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    transition: 0.2s;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+}
+
+.sidebar a:hover{
+    background: #148577;
+    color: #fff;
+}
+
+/* CONTEÚDO */
+.content {
+    margin-left: 240px;
+    padding: 25px;
+    width: 100%;
+}
+
+/* TÍTULOS */
+.titulo-pagina {
+    font-weight: 600;
+}
+
+/* CARDS */
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.card h3 {
+    margin: 0;
+}
+
+/* TABELAS */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #f8fafc;
+}
+
+/* BOTÕES */
+.btn {
+    border-radius: 8px;
+}
+
+/* BADGES */
+.badge {
+    font-size: 12px;
+    padding: 6px 8px;
+}
+
+.mensagem {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.mensagem.sucesso {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.mensagem.erro {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+form label {
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+form input {
+    border-radius: 8px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .content {
+        margin-left: 200px;
+        padding: 15px;
+    }
+
+}

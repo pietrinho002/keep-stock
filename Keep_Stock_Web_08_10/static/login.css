@@ -1,0 +1,311 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body { overflow: hidden; height: 100vh; width: 100vw; margin: 0; }
+        
+        .view-section { display: none !important; height: 100vh; width: 100vw; overflow: hidden; }
+        .view-section.active { display: flex !important; }
+        
+        .sub-view { display: none !important; flex: 1; flex-direction: column; overflow-y: auto; }
+        .sub-view.active { display: block !important; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+
+.form-field {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-field label {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-field input.form-control {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #e0e0e0;
+    border-radius: 0;
+    padding: 10px 0;
+    font-size: 1rem;
+    background: transparent;
+    outline: none;
+    color: #333;
+    box-shadow: none;
+}
+
+.form-field input.form-control::placeholder {
+    color: #aaa;
+}
+
+.form-field input.form-control:focus {
+    border-color: transparent;
+    border-bottom: 2px solid #148577;
+    background: transparent;
+    box-shadow: none;
+}
+
+#botao_formulario button.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background-color: #148577;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(20, 133, 119, 0.3);
+}
+
+#botao_formulario button.btn:hover {
+    background-color: #0A4D46;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(10, 77, 70, 0.4);
+}
+
+/* COLUNA ESQUERDA */
+.coluna-boas-vindas {
+    flex: 1;
+    min-width: 300px;
+    
+    background-color: #148577; 
+    background-image: url('Fundo_Landing2.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.mensagem-boas-vindas {
+    max-width: 450px;
+}
+
+.mensagem-boas-vindas .logo-login {
+    margin-bottom: 30px;
+}
+
+.mensagem-boas-vindas .logo-login img {
+    max-width: 250px; 
+    object-fit: contain;
+    filter: brightness(0) invert(1); 
+}
+
+.mensagem-boas-vindas h2 {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-top: 300px;
+}
+
+/* COLUNA DIREITA */
+.coluna-form {
+    flex: 1;
+    min-width: 300px;
+    background-color: #f8f9fa; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    margin-bottom: -120px;
+    margin-top: -100px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    padding: 50px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); 
+}
+
+.textos-login {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.textos-login h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.textos-login h4 {
+    font-size: 1rem;
+    color: #777;
+    font-weight: 400;
+}
+
+/* INPUTS E CAMPOS DE TEXTO */
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #e0e0e0;
+    padding: 10px 0;
+    font-size: 1rem;
+    background: transparent;
+    outline: none;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+input:focus {
+    border-bottom: 2px solid #148577; 
+}
+
+
+#botao_formulario {
+    display: flex;
+    justify-content: center; 
+    margin-top: 30px;
+}
+
+#botao_formulario button {
+    width: 100%; 
+    padding: 14px;
+    border: none;
+    background-color: #148577; 
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(20, 133, 119, 0.3);
+}
+
+#botao_formulario button:hover {
+    background-color: #0A4D46;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(10, 77, 70, 0.4);
+}
+
+/* LINKS DE DIRECIONAMENTO (login, cadastro)*/
+
+.link-direcionamento {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.link-direcionamento p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.link-direcionamento a {
+    color: #148577; 
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.link-direcionamento a:hover {
+    color: #0A4D46;
+    text-decoration: underline;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 992px) {
+    /* Libera a rolagem para o formulário não ser cortado */
+    body {
+        overflow: auto;
+        height: auto;
+    }
+
+    .view-section {
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+    }
+
+    /* Mensagem de boas-vindas vira um banner acima do formulário */
+    .coluna-boas-vindas {
+        min-height: 220px;
+        padding: 25px;
+    }
+
+    .mensagem-boas-vindas h2 {
+        margin-top: 0 !important;
+        font-size: 1rem;
+    }
+
+    .coluna-form {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .coluna-boas-vindas {
+        min-height: 160px;
+        padding: 20px;
+    }
+
+    .mensagem-boas-vindas h2 {
+        font-size: 0.9rem;
+    }
+
+    .form-container {
+        padding: 30px 20px;
+    }
+
+    .textos-login h1 {
+        font-size: 1.6rem;
+    }
+
+    .textos-login h4 {
+        font-size: 0.9rem;
+    }
+}
+
+
+

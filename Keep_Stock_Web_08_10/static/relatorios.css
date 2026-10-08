@@ -1,0 +1,173 @@
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 0.85rem;
+}
+
+.btn-editar {
+    font-size: 0.8rem;
+    background-color: #148577;
+    border: none;
+}
+
+.btn-editar:hover {
+    background-color: #18c7b3;
+}
+
+#titulo_produtos {
+    color: #148577;
+    font-weight: bold;
+    display: flex;
+    margin-right: 960px;
+}
+
+#titulo_produtos h2 {
+    color: #148577;
+    font-weight: bold;
+    display: flex;
+    font-size: bold;
+}
+
+#titulo_produtos {
+    margin-left: -110px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 60px;
+    margin-top: 40px;
+}
+
+#titulo_produtos h5 {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+#titulo_produtos img { 
+    width: 30px;
+    margin-top: -5px;
+    margin-right: 20px;
+}
+
+#alternar_grade_lista img{
+    border: none;
+    background-color: #ffffff;
+    display: flex;
+    width: 20px;
+    justify-content: right;
+    margin-right: 30px;
+}
+
+#alternar_grade_lista {
+    display: flex;
+}
+
+#alternar_grade_lista img:hover {
+    background-color: #18c7b3;
+}
+
+
+#hero_produtos {
+    display: flex;
+    justify-content: center;
+}
+
+#pesquisar_produto {
+    background-color: #148577;
+    margin-right: 20px;
+    border: none;
+    padding-left: 10px;
+}
+
+#pesquisar_produto:hover {
+    background-color: #18c7b3
+}
+
+#filtro_produto {
+    background-color: #148577;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+}
+
+#filtro_produto:hover {
+    background-color: #18c7b3
+}
+
+#adicionar_produto {
+    display: flex;
+    justify-content: center;
+    background-color: #148577;
+    margin-left: 20px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+}
+
+#adicionar_produto p{
+    margin-top: 5px;
+    margin-bottom: -5px;
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#adicionar_produto:hover {
+    background-color: #18c7b3
+}
+
+#titulo_canvas_adicionar img {
+    width: 20px;
+    margin-bottom: 10px;
+    margin-left: 150px;
+}
+
+#titulo_canvas_editar img {
+    width: 20px;
+    margin-bottom: 10px;
+    margin-left: 150px;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1400px) {
+    #titulo_produtos {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    #hero_produtos {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 0 15px;
+    }
+
+    #titulo_produtos {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
+    #titulo_canvas_adicionar img,
+    #titulo_canvas_editar img {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    #titulo_produtos h2 {
+        font-size: 1.4rem;
+    }
+
+    #titulo_produtos h5 {
+        font-size: 0.9rem;
+    }
+
+    #titulo_produtos img {
+        margin-right: 10px;
+    }
+}

@@ -1,0 +1,75 @@
+/* Painel do leitor de tela */
+
+#leitor-tela {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    z-index: 1100;
+}
+
+#leitor-tela button {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.85rem;
+    color: #ffffff;
+    background-color: #148577;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#leitor-tela button:hover {
+    background-color: #18c7b3;
+}
+
+#leitor-tela button:focus-visible {
+    outline: 3px solid #0b463f;
+    outline-offset: 2px;
+}
+
+#leitor-tela button.ativo {
+    background-color: #0b463f;
+}
+
+#leitor_alternar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+#leitor_alternar img {
+    width: 24px;
+    height: 24px;
+}
+
+#leitor-tela button[hidden] {
+    display: none;
+}
+
+@media (max-width: 576px) {
+    #leitor-tela {
+        right: 10px;
+        bottom: 10px;
+    }
+
+    #leitor-tela button {
+        font-size: 0.75rem;
+        padding: 8px 12px;
+    }
+
+    #leitor_alternar {
+        width: 42px;
+        height: 42px;
+        padding: 0;
+    }
+}
